@@ -1,0 +1,53 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 05.12.2023 13:17:04
+// Design Name: 
+// Module Name: sv_event
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module sv_event();
+
+event int_ack;
+
+initial
+    begin
+    #20-> int_ack;
+    $display("the time which event is triggered1 =%0t",$time);
+    end
+
+initial
+begin
+$display("waiting to event is triggered2 =%0t",$time);
+#30 -> int_ack;
+$display("the time which event is triggered2 =%0t",$time);
+end
+
+initial
+begin
+$display("waiting to event is triggered3 =%0t",$time);
+@int_ack;
+$display("the time which event is triggered3 =%0t",$time);
+end
+
+initial
+begin
+$display("waiting to event is triggered4 =%0t",$time);
+wait(int_ack.triggered);
+$display("the time which event is triggered4 =%0t",$time);
+end
+endmodule
